@@ -4,7 +4,7 @@
 
 # import libraries
 
-from PIL import Image, ImageEnhance, ImageFilter, ImageOps
+#from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 import xlsxwriter
 import os
 import cv2
@@ -28,45 +28,8 @@ row = 1
 col = 0
 
 
-# creates the function all images are going to cylce through
-def BarcodeReader(filename):
-
-    # read the image in numpy array
-    img = cv2.imread(filename)
-
-    # decode barcode in image
-    detectedBarcodes = decode(img)
-
-    # if not detected add placeholder into textfile
-    if not detectedBarcodes:
-        detectedBarcodes = "Barcode not detected my boi"
-    else:
-        
-        # Traverse through all the detected barcodes in image
-        for barcode in detectedBarcodes:
-        
-            # Locate the barcode position in image
-            (x, y, w, h) = barcode.rect
-            
-            # Put the rectangle in image using
-            # cv2 to heighlight the barcode
-            cv2.rectangle(img, (x-10, y-10),
-                        (x + w+10, y + h+10),
-                        (255, 0, 0), 2)
-            
-            if barcode.data!="":
-            
-            # Print the barcode data
-                detectedBarcodes = barcode.data
-
-                return detectedBarcodes
-
-
-
-
-
 # enters for loop to iterate through files
-for filename in os.listdir(r'C:\Users\chris\OneDrive\Desktop\scipts\python\barcode_reader\imgs'):
+for filename in os.listdir(r'C:\Users\chris\Desktop\python\barcode_reader\imgs'):
 
     # get img name
     worksheet.write(row, col, filename)
@@ -74,14 +37,19 @@ for filename in os.listdir(r'C:\Users\chris\OneDrive\Desktop\scipts\python\barco
     col = col +1
 
     # barcode decoder
+    img = cv2.imread(filename)
+    for code in decode(img):
+        detectedBarcodes = code.data.decode('utf-8')
 
+    #i = 0
 
-    detectedBarcodes = BarcodeReader(filename)
-
-    # adds information into excel
+    # initiate counter for list
+    #dataText = detectedBarcodes.data[i]
 
     # adds information into an excel
     worksheet.write(row, col, detectedBarcodes)
+
+    #i = i + 1
 
     # row col increments
     row = row +1
