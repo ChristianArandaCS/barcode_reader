@@ -1,4 +1,5 @@
-# this file reads barcodes of all images fed into the script
+# barcodeRader V2
+#  this file reads barcodes of all images fed into the script
 # primarly used for returns with barcodes in the images of return shipment label
 
 
@@ -41,19 +42,25 @@ for filename in os.listdir(r'C:\Users\chris\Desktop\python\barcode_reader\imgs')
     for code in decode(img):
         detectedBarcodes = code.data.decode('utf-8')
 
-    #i = 0
+        # adds information into an excel
+        worksheet.write(row, col, detectedBarcodes)
+        # row col increments
 
-    # initiate counter for list
-    #dataText = detectedBarcodes.data[i]
+        col = col + 1
 
-    # adds information into an excel
-    worksheet.write(row, col, detectedBarcodes)
+        # num of columns to go back
+        i = 1
+        i = i + 1
 
-    #i = i + 1
-
-    # row col increments
+    # sets and resets the rows and cols in excel
     row = row +1
-    col = col - 1
+    col = 0
+
+  
+
+
+
+
 
     
 workbook.close()
