@@ -1,4 +1,5 @@
 <H1>barcode_reader</H1>
+<H3>Christian Aranda</H3>
 
 This program is built to speed up and automate the return process for an ecommerce using Amazon,Ebay, Walmart, and Target.
 
