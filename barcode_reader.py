@@ -30,7 +30,7 @@ col = 0
 
 
 # enters for loop to iterate through files
-for filename in os.listdir(r'C:\Users\chris\Desktop\python\barcode_reader\imgs'):
+for filename in os.listdir(r'C:\Users\chris\OneDrive\Desktop\scipts\python\barcode_reader\imgs'):
 
     # get img name
     worksheet.write(row, col, filename)
