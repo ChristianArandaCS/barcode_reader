@@ -1,17 +1,22 @@
-# barcodeRader V2
-#  this file reads barcodes of all images fed into the script
-# primarly used for returns with barcodes in the images of return shipment label
-
+# barcodeRader v1.2
+# this file reads barcodes of all images fed into the script
+# primarly used to better track and process returns in bulk
 
 # import libraries
-
-#from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 import xlsxwriter
 import os
 import cv2
+import shutil
+from pathlib import Path
 from pyzbar.pyzbar import decode
 
 
+# set paths
+img_path = r'C:\Users\chris\OneDrive\Desktop\scipts\python\barcode_reader\imgs'
+script_path = r'C:\Users\chris\OneDrive\Desktop\scipts\python\barcode_reader'
+
+
+#sets up excel file
 # generates output excel file
 workbook = xlsxwriter.Workbook('result.xlsx')
 worksheet = workbook.add_worksheet()
@@ -29,8 +34,16 @@ row = 1
 col = 0
 
 
+# get all file names from img source location
+img_list = os.listdir(img_path)
+
+# copies a files from the img source to the script path
+for fname in img_list:
+    shutil.copy2(os.path.join(img_path,fname),script_path)
+
+
 # enters for loop to iterate through files
-for filename in os.listdir(r'C:\Users\chris\OneDrive\Desktop\scipts\python\barcode_reader\imgs'):
+for filename in os.listdir(img_path):
 
     # get img name
     worksheet.write(row, col, filename)
@@ -56,13 +69,11 @@ for filename in os.listdir(r'C:\Users\chris\OneDrive\Desktop\scipts\python\barco
     row = row +1
     col = 0
 
-  
-
-
-
-
-
-    
+# finished adding barcodes to excel and closes excel    
 workbook.close()
+
+
+# deletes all images in script path directory
+
 
 quit()
