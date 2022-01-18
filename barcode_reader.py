@@ -1,4 +1,6 @@
-# barcodeRader v1.2
+# barcodeRader v1.3
+# 01/18/2022
+####################
 # this file reads barcodes of all images fed into the script
 # primarly used to better track and process returns in bulk
 
