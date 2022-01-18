@@ -12,7 +12,8 @@ from pyzbar.pyzbar import decode
 
 
 # set paths
-img_path = r'C:\Users\chris\OneDrive\Desktop\scipts\python\barcode_reader\imgs'
+img_path = r'Z:\Shared\Office Files - Los Angeles Branch\Returns\01.12.22\gp0121222-done - Copy\original'
+folder_path = r'Z:\Shared\Office Files - Los Angeles Branch\Returns\01.12.22\gp0121222-done - Copy'
 script_path = r'C:\Users\chris\OneDrive\Desktop\scipts\python\barcode_reader'
 
 
@@ -72,6 +73,26 @@ for filename in os.listdir(img_path):
 # finished adding barcodes to excel and closes excel    
 workbook.close()
 
+
+# create a folder in the image file location
+labeled_imgs = os.path.join(folder_path,"labeled_imgs")
+os.mkdir(labeled_imgs)
+
+
+# label all images in the folder "labeled_imgs"
+
+
+
+# move all images from script dir to img dir
+for fname in img_list:
+    shutil.move(os.path.join(script_path,fname), labeled_imgs)
+
+# get all file names from img source location
+#img_list = os.listdir(img_path)
+
+# copies a files from the img source to the script path
+#for fname in img_list:
+#    shutil.copy2(os.path.join(img_path,fname),script_path)
 
 # deletes all images in script path directory
 
