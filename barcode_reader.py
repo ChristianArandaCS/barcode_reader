@@ -7,6 +7,9 @@ import xlsxwriter
 import os
 import cv2
 import shutil
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
 from pathlib import Path
 from pyzbar.pyzbar import decode
 
@@ -80,21 +83,34 @@ os.mkdir(labeled_imgs)
 
 
 # label all images in the folder "labeled_imgs"
+for labeled_img in img_list:
 
+    # Open an Image
+    img = Image.open(labeled_img)
+    
+    # Call draw Method to add 2D graphics in an image
+    I1 = ImageDraw.Draw(img)
+    
+    # Custom font style and font size
+    myFont = ImageFont.truetype('arial.ttf', 65)
+    
+    # Add Text to an image
+    I1.text((50, 100), labeled_img, font=myFont ,fill=0)
+    
+    # Save the edited image
+    img.save(labeled_img)
 
 
 # move all images from script dir to img dir
 for fname in img_list:
     shutil.move(os.path.join(script_path,fname), labeled_imgs)
 
-# get all file names from img source location
-#img_list = os.listdir(img_path)
 
-# copies a files from the img source to the script path
-#for fname in img_list:
-#    shutil.copy2(os.path.join(img_path,fname),script_path)
+# create ppaths for the excel to move to
+src_excel = os.path.join(script_path,'result.xlsx')
+dest_excel = os.path.join(folder_path,'result.xlsx')
 
-# deletes all images in script path directory
-
+# move excel to folder dir
+dest = shutil.move(src_excel, dest_excel)
 
 quit()
